@@ -1,0 +1,41 @@
+{% extends "./base.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+  .construction-container {
+    margin: 0;
+    font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+    color: #fbfbfb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    text-align: center;
+    row-gap: 70px;
+    flex-direction: column;
+  }
+  .construction-container h1 {
+    font-weight: bolder;
+    font-size: 34px;
+    text-transform: uppercase;
+  }
+  .construction-container p {
+    font-size: 18px;
+  }
+</style>
+
+  <div class="construction-container">
+    <a>
+      <h1>
+        🛠️ Coming Soon
+      </h1>
+    </a>
+    <a>
+      <p>
+        Website is currently under construction
+      </p>
+    </a>
+  </div>
+
+{% endblock %}

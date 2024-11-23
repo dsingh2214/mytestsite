@@ -1,0 +1,106 @@
+{% extends "./base.html" %}
+{% load static %}
+{% block content %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .founder-section {
+      text-align: center;
+      position: relative;
+      left: 50%;
+      transform: translate(-50%);
+    }
+    .founder-section img {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      position: relative;
+      left: 50%;
+      transform: translate(-50%);
+    }
+    .founder-section p {
+      color: #fbfbfb;
+    }
+    .founder-info {
+      margin-top: 15px;
+      position: relative;
+      left: 50%;
+      transform: translate(-50%);
+    }
+    .founder-info h2 {
+      font-size: 1.5em;
+      color: #fbfbfb;
+    }
+    .founder-details {
+      position: relative;
+      left: 50%;
+      transform: translate(-50%);
+      display: block;
+    }
+    .experience, .achievements {
+      margin-top: 20px;
+    }
+    .experience h3, .achievements h3 {
+      font-size: 1.2em;
+      color: #fbfbfb;
+      margin-bottom: 10px;
+    }
+    .experience p, .achievements ul {
+      font-size: 1em;
+      color: #fbfbfb;
+    }
+    .achievements ul {
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<br>
+<br>
+    <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+
+      <div class="container max-w-5xl mx-auto m-8">
+        <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white-800">
+          About Us
+        </h1>
+        <div class="w-full mb-4">
+          <div class="h-1 mx-auto gradient w-64 opacity-100 my-0 py-0 rounded-t"></div>
+        </div>
+        <div class="founder-section">
+          <img src="{% static 'about_us.png' %}">
+          <div class="founder-info">
+              <h2>Ved Prakash Singh</h2>
+              <p>Founder & CEO</p>
+              <p>Faculty at NACIN and Mumbai University</p>
+              <p>Retd. Joint Commissioner (CBIC Gov. of India)</p>
+          </div>
+        </div>
+      <div class="founder-details">
+        <div class="experience">
+          <h3>Experience</h3>
+          <p>With over 15 years in the tech industry, John Doe has led numerous successful projects, spearheading innovation in digital solutions and technology-driven services.</p>
+        </div>
+
+        <div class="achievements">
+          <h3>Achievements</h3>
+          <ul>
+            <li>Recipient of the "Tech Visionary" Award in 2020</li>
+            <li>Published articles in top industry journals</li>
+            <li>Recognized as one of the "Top 50 Innovators in Technology" in 2019</li>
+            <li>Founder of multiple successful startups in tech and services</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    </div>
+
+{% endblock %}

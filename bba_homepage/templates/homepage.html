@@ -1,0 +1,23 @@
+{% extends "./base.html" %}
+{% load static %}
+{% block content %}
+    <!--Hero-->
+
+  <img src="{% static 'home_cargo.png' %}" style="position: relative; z-index: -1; object-ft:fill; width:100%">
+
+    <div class="pt-24">
+      <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+        <!--Left Col-->
+        <div class="flex flex-col w-full md:w-3/5 justify-center items-start text-center md:text-left">
+          <p class="uppercase tracking-loose w-full">Central Excise, Customs and GST consultants</p>
+          <h1 class="my-4 text-5xl font-bold leading-tight">
+            Industry veterans and lawyers
+          </h1>
+
+          <p class="leading-normal text-2xl mb-8">
+            Our panel of experts with 35+ years of industry experience are here to help you with issues you face in Customs, Central Excise and GST related grievances.
+          </p>
+        </div>
+      </div>
+    </div>
+{% endblock %}

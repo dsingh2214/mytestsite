@@ -1,0 +1,88 @@
+{% extends "./base.html" %}
+{% block content %}
+<style>
+      input[type=text], select, textarea {
+      width: 100%; /* Full width */
+      padding: 12px; /* Some padding */
+      border: 1px solid #ccc; /* Gray border */
+      border-radius: 4px; /* Rounded borders */
+      box-sizing: border-box; /* Make sure that padding and width stays in place */
+      margin-top: 6px; /* Add a top margin */
+      margin-bottom: 16px; /* Bottom margin */
+      resize: vertical; /* Allow the user to vertically resize the textarea (not horizontally) */
+      color: #333;
+    }
+
+    .messages {
+      position: relative;
+      left: 50%;
+      transform: translate(-50%);
+      display: block;
+      color: #ffffff;
+      width: 50%;
+      text-align: center;
+    }
+
+    .contact-details {
+      position: relative;
+      left: 50%;
+      transform: translate(-50%);
+      display: block;
+      color: #ffffff;
+      width: 50%;
+      text-align: center;
+    }
+
+    .tab {
+        display: inline-block;
+        margin-left: 4em;
+    }
+
+
+</style>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<br>
+<br>
+      <div class="container max-w-5xl mx-auto m-8">
+        <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">
+          Contact Us
+        </h1>
+        <div class="w-full mb-4">
+          <div class="h-1 mx-auto gradient w-64 opacity-100 my-0 py-0 rounded-t"></div>
+        </div>
+        <form method="post">
+          {% csrf_token %}
+          {{ form }}
+          <div class="form-actions">
+            <button type="submit"  class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+            style="position: relative; left: 50%; transform: translate(-50%);">
+              Send
+            </button>
+          </div>
+        </form>
+      </div>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+        <br>
+        <br>
+        <div class="contact-details">
+          <ul>
+            <li>
+              <i class="material-icons" style="vertical-align: bottom;">&#xe0be;</i>
+                <a href="mailto:info@blueboatadvisors.com">info@blueboatadvisors.com</a>
+              <span class="tab"></span>
+              <i class="material-icons" style="vertical-align: bottom;">&#xe8c5;</i>
+                <a href="tel:+919769933750">+91-976-993-3750</a>
+            </li>
+          </ul>
+        </div>
+
+
+
+
+{% endblock %}
