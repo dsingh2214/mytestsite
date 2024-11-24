@@ -66,8 +66,13 @@ def render_contact_us(request):
             name = form.data['name']
             phone = form.data['phone']
             subject = form.data['subject']
-            email = form.data['subject']
-            body = '<br><br>'.join([subject, form.data['message'], name, phone, email])
+            email = form.data['email']
+            body = '<br><br>'.join([
+                "SUB: " + subject,
+                "MESSAGE: " + form.data['message'],
+                "NAME: " + name,
+                "PHONE: " + phone,
+                "EMAIL: " + email])
 
             try:
                 send_email("NEW INQUIRY [BBA]", "devang.ds.singh@gmail.com", "BBA",
