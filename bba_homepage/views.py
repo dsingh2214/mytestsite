@@ -1,46 +1,21 @@
 from django.shortcuts import render, redirect
 from .forms import ContactForm
 from django.contrib import messages
-import requests
+import smtplib
 import os
 
-API_KEY = os.environ.get('ELASTICEMAIL_API_KEY')
+
+SENDER = "blueboatadvisor@gmail.com"
+PASSCODE = os.getenv("GMAIL_PASSCODE")
 
 
-class ApiClient:
-    apiUri = 'https://api.elasticemail.com/v2'
-    apiKey = API_KEY
-
-    def Request(method, url, data):
-        data['apikey'] = ApiClient.apiKey
-        if method == 'POST':
-            result = requests.post(ApiClient.apiUri + url, data=data)
-        elif method == 'PUT':
-            result = requests.put(ApiClient.apiUri + url, data=data)
-        elif method == 'GET':
-            attach = ''
-            for key in data:
-                attach = attach + key + '=' + data[key] + '&'
-            url = url + '?' + attach[:-1]
-            result = requests.get(ApiClient.apiUri + url)
-
-        jsonMy = result.json()
-
-        if jsonMy['success'] is False:
-            return jsonMy['error']
-
-        return jsonMy['data']
-
-
-def send_email(subject, from_id, fromName, to, bodyHtml, bodyText, isTransactional):
-    return ApiClient.Request('POST', '/email/send', {
-        'subject': subject,
-        'from': from_id,
-        'fromName': fromName,
-        'to': to,
-        'bodyHtml': bodyHtml,
-        'bodyText': bodyText,
-        'isTransactional': isTransactional})
+def send_email(to_addrs, msg, subject):
+    server = smtplib.SMTP("smtp.gmail.com", 587)
+    server.ehlo()
+    server.starttls()
+    server.login(SENDER, PASSCODE)
+    message = 'Subject: {}\n\n{}'.format(subject, msg)
+    server.sendmail(SENDER, to_addrs, message)
 
 
 def render_homepage(request):
@@ -67,16 +42,19 @@ def render_contact_us(request):
             phone = form.data['phone']
             subject = form.data['subject']
             email = form.data['email']
-            body = '<br><br>'.join([
-                "SUB: " + subject,
-                "MESSAGE: " + form.data['message'],
-                "NAME: " + name,
-                "PHONE: " + phone,
-                "EMAIL: " + email])
+            body = '\n\n'.join([
+                "NAME\n" + name,
+                "PHONE\n" + phone,
+                "EMAIL\n" + email,
+                "SUB\n" + subject,
+                "MESSAGE\n " + form.data['message'],
+                ])
+
+            user_email = f"Hi {name},\n\nThank you for reaching out, we have received your message. Our support executive will get in touch shortly.\n\nRegards,\nBlueBoat Advisors"
 
             try:
-                send_email("NEW INQUIRY [BBA]", "devang.ds.singh@gmail.com", "BBA",
-                     "devang.ds.singh@gmail.com", f"<h1>{body}</h1>", "", True)
+                send_email(SENDER, body, "NEW INQUIRY [BBA - Contact Us]")
+                send_email(email, user_email, 'BBA Support')
                 messages.success(request, 'Thank you! Our customer support executive will get in touch shortly.')
             except:
                 print("Exception when sending email")

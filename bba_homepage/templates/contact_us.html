@@ -50,6 +50,17 @@
         <div class="w-full mb-4">
           <div class="h-1 mx-auto gradient w-64 opacity-100 my-0 py-0 rounded-t"></div>
         </div>
+        <br>
+        <br>
+          {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+                {% endfor %}
+            </ul>
+          {% endif %}
+        <br>
+
         <form method="post">
           {% csrf_token %}
           {{ form }}
@@ -61,25 +72,20 @@
           </div>
         </form>
       </div>
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-        <br>
-        <br>
+      <br>
         <div class="contact-details">
           <ul>
             <li>
               <!--
-              <i class="material-icons" style="vertical-align: bottom;">&#xe0be;</i>
-                <a href="mailto:info@blueboatadvisors.com">info@blueboatadvisors.com</a>
               <span class="tab"></span>
               -->
               <i class="material-icons" style="vertical-align: bottom;">&#xe8c5;</i>
                 <a href="tel:+919769933750">+91-976-993-3750</a>
+            </li>
+            <br>
+            <li>
+              <i class="material-icons" style="vertical-align: bottom;">&#xe0be;</i>
+                <a href="mailto:blueboatadvisor@gmail.com">blueboatadvisor@gmail.com</a>
             </li>
           </ul>
         </div>
