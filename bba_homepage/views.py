@@ -1,21 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from .forms import ContactForm
 from django.contrib import messages
-import smtplib
-import os
+from django.core.mail import send_mail
+import logging
 
+logger = logging.getLogger(__name__)
 
 SENDER = "blueboatadvisor@gmail.com"
-PASSCODE = os.getenv("GMAIL_PASSCODE")
-
-
-def send_email(to_addrs, msg, subject):
-    server = smtplib.SMTP("smtp.gmail.com", 587)
-    server.ehlo()
-    server.starttls()
-    server.login(SENDER, PASSCODE)
-    message = 'Subject: {}\n\n{}'.format(subject, msg)
-    server.sendmail(SENDER, to_addrs, message)
 
 
 def render_homepage(request):
@@ -53,13 +44,14 @@ def render_contact_us(request):
             user_email = f"Hi {name},\n\nThank you for reaching out, we have received your message. Our support executive will get in touch shortly.\n\nRegards,\nBlueBoat Advisors"
 
             try:
-                send_email(SENDER, body, "NEW INQUIRY [BBA - Contact Us]")
-                send_email(email, user_email, 'BBA Support')
+                send_mail("NEW INQUIRY [BBA - Contact Us]", body, SENDER, [SENDER])
+                send_mail("BBA Support", user_email, SENDER, [email])
+
                 messages.success(request, 'Thank you! Our customer support executive will get in touch shortly.')
             except:
-                print("Exception when sending email")
+                logger.info("Exception when sending email")
                 messages.success(request,
-                                 'There seems to be some issue with form submission, please email us directly.')
+                                 'There seems to be some issue with form submission, please email/call us directly.')
 
     else:
         form = ContactForm()
