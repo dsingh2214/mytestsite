@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-from pathlib import Path
+import json
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,17 +29,20 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    f = open('/home/ubuntu/secrets.config', 'r')
+    EMAIL_HOST_PASSWORD = json.loads(f.read())["GMAIL_PASSCODE"]
 else:
     SECURE_SSL_REDIRECT = False
     CSRF_COOKIE_SECURE = False
     SESSION_COOKIE_SECURE = False
+    EMAIL_HOST_PASSWORD = os.getenv("GMAIL_PASSCODE")
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'blueboatadvisor@gmail.com'
-EMAIL_HOST_PASSWORD = os.getenv("GMAIL_PASSCODE")
+
 
 ALLOWED_HOSTS = ["*", "3.108.220.8", "blueboatadvisors.com", "www.blueboatadvisors.com", "127.0.0.1", "192.168.1.3"]
 
