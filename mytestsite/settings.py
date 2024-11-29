@@ -29,7 +29,12 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    EMAIL_USE_TLS = True
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'blueboatadvisor@gmail.com'
+EMAIL_HOST_PASSWORD = os.getenv("GMAIL_PASSCODE")
 
 ALLOWED_HOSTS = ["*", "3.108.220.8", "blueboatadvisors.com", "www.blueboatadvisors.com", "127.0.0.1", "192.168.1.3"]
 
